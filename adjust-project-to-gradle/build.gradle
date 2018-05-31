@@ -13,9 +13,16 @@ sourceSets {
 		}
 	}
 }
+
+repositories {
+    jcenter()
+}
+
 // compile dependencies
 dependencies {
-	compile files ('lib/log4j-1.2.8.jar', 'lib/junit-3.8.1.jar')
+	// compile files ('lib/log4j-1.2.8.jar', 'lib/junit-3.8.1.jar')
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile 'junit:junit:4.12'
 }
 
 task wrapper (type: Wrapper)
