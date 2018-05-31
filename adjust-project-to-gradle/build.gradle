@@ -18,6 +18,13 @@ dependencies {
 	compile files ('lib/log4j-1.2.8.jar', 'lib/junit-3.8.1.jar')
 }
 
+task singleTest (type: Test){
+    dependsOn testClasses
+    filter {
+        includeTestsMatching '*testWhenInputFileDoesExist'
+    }
+}
+
 task wrapper (type: Wrapper)
 
 // passing arguments to the application
