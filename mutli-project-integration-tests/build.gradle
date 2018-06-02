@@ -1,3 +1,4 @@
+// adds dependencies and repositories for build script (not for task within build script)
 buildscript {
     repositories {
         jcenter()
@@ -12,6 +13,7 @@ plugins {
   id 'org.unbroken-dome.test-sets' version '1.2.0'
 }
 
+// apply everything within this section to every project in this build (top level and subprojects)
 allprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
@@ -36,7 +38,7 @@ allprojects {
   }
 }
 
-
+// information specific to each project
 project(':HibernateRepository') {
     dependencies {
       compile project(':Repository')
@@ -61,6 +63,7 @@ project(':JacketWeb') {
     }
 }
 
+// setting information for certain projects
 ["JacketRepository", "JacketService", "JacketWeb"].each { name ->
   project(":$name") { 
     apply plugin: 'org.unbroken-dome.test-sets'
@@ -72,6 +75,7 @@ project(':JacketWeb') {
       }
     }
     
+    // adding task (set up database during migration)
     task migrateTest {	
       group = "test"
       description = "Run migration scripts for test"
@@ -91,6 +95,7 @@ project(':JacketWeb') {
 		
     migrateTest.finalizedBy flywayMigrate  
 
+    // "check" task
     check.dependsOn integrationTest
 
     integrationTest.mustRunAfter test
